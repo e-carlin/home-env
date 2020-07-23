@@ -180,6 +180,12 @@ gchmod() {
     git update-index --chmod=+x "$@"
 }
 
+gbdel() {
+    git branch --merged master | \
+        grep --invert-match --extended-regexp '^\*|^. master$' | \
+        xargs --no-run-if-empty --max-args=1 git branch --delete
+}
+
 ghead() {
     git checkout HEAD "$@"
 }
